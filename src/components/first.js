@@ -5,6 +5,7 @@ class FirstFn extends Component {
     return (
       <div>
         {this.props.text}
+        <div>test</div>
       </div>
     );
   }
