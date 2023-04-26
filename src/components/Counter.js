@@ -6,7 +6,8 @@ class Counter extends Component {
     return (
 
       <>
-        <button onClick={ () =>  this.props.handleClick()}>click</button>
+        <button onClick={ () =>  this.props.handleClick()}>+</button>
+        <button onClick={() => this.props.handleClickSub()}>-</button>
         <p>{this.props.count}</p>
 
       </>
