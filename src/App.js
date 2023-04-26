@@ -2,8 +2,10 @@ import './App.css';
 import React from "react";
 import Counter from "./components/Counter";
 import ChangeColor from "./components/ChangeColor/ChangeColor";
-import ShowText from "./components/showTextComponent/ShowText";
+import ShowText from "./components/ShowTextComponent/ShowText";
 import ShowName from "./components/showName";
+import Clock from "./components/Clock/Clock";
+import SwitchStatus from "./components/isOnStatus/SwitchStatus";
 
 
 class App extends React.Component {
@@ -12,7 +14,10 @@ class App extends React.Component {
     current: 0,
     color: "blue",
     secondColor: "red",
-    names : ['Masha','Tolik','Valera','Vova'],
+    names: ['Masha', 'Tolik', 'Valera', 'Vova'],
+    time: new Date(),
+    isOn: true,
+
   }
   handleClick = (state) => {
     this.setState(() => ({
@@ -56,6 +61,28 @@ class App extends React.Component {
     return color
   }
 
+  tick() {
+    this.setState({
+      time: new Date()
+    })
+  }
+
+  componentDidMount() {
+    this.timeId = setInterval(
+      () => this.tick(),
+      1000
+    )
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeId)
+  }
+
+  switchStatus = (state) => {
+    this.setState(() => ({
+      isOn: !state.isOn,
+    }))
+  }
 
   render() {
 
@@ -68,6 +95,8 @@ class App extends React.Component {
         <ChangeColor color={this.state.color} changeColor={() => this.changeColor(this.state)}
                      changeColorToo={() => this.changeColorToo(this.state)} secondColor={this.state.secondColor}/>
         {this.state.names.map(name => <ShowName name={name}/>)}
+        <Clock time={this.state.time}/>
+        <SwitchStatus switchStatus={() => this.switchStatus(this.state)} status={this.state.isOn}/>
       </>
     )
   }
