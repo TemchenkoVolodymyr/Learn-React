@@ -6,6 +6,10 @@ import ShowText from "./components/ShowTextComponent/ShowText";
 import ShowName from "./components/showName";
 import Clock from "./components/Clock/Clock";
 import SwitchStatus from "./components/isOnStatus/SwitchStatus";
+import Conditional from "./components/Conditional Rengering/ifElse";
+import ShowLists from "./components/Lists/ShowLists";
+import Textarea from "./components/Forms/Textarea";
+import Select from "./components/Forms/Select";
 
 
 class App extends React.Component {
@@ -17,7 +21,25 @@ class App extends React.Component {
     names: ['Masha', 'Tolik', 'Valera', 'Vova'],
     time: new Date(),
     isOn: true,
+    isLogin: false,
+    name: 'Admin',
+    showComponent: false,
+    listItem: [
+      {title: 'work', id: 1},
+      {title: 'job', id: 2},
+      {title: 'little', id: 3},
+      {title: 'small', id: 4},
+      {title: 'son', id: 5},
+      {title: 'lot', id: 6},
+    ],
+    textareaValue: "",
+    selectValue : "cake"
 
+  }
+  handleClickLogin = (state) => {
+    this.setState(() => ({
+      isLogin: !state.isLogin
+    }))
   }
   handleClick = (state) => {
     this.setState(() => ({
@@ -83,9 +105,27 @@ class App extends React.Component {
       isOn: !state.isOn,
     }))
   }
+  hiddeComponent = (state) => {
+    this.setState(() => ({
+      showComponent: !state.showComponent
+    }))
+  }
+  changeTextAreaValue (event) {
+    this.setState({textareaValue: event.target.value})
+  }
+  preventDefaultTextAreaValue (event) {
+    event.preventDefault()
+    this.setState({textareaValue:""})
+  }
+
+  changeSelectValue = (event) => {
+    this.setState(() => ({
+      selectValue:event.target.value
+    }))
+  }
+
 
   render() {
-
     return (
       <>
         <ShowText text={"Some text from lesson 2"}/>
@@ -97,6 +137,15 @@ class App extends React.Component {
         {this.state.names.map(name => <ShowName name={name}/>)}
         <Clock time={this.state.time}/>
         <SwitchStatus switchStatus={() => this.switchStatus(this.state)} status={this.state.isOn}/>
+        <Conditional status={this.state.isLogin} name={this.state.name}
+                     handleClickLogin={() => this.handleClickLogin(this.state)}
+                     showComponent={this.state.showComponent}/>
+        <button onClick={() => this.hiddeComponent(this.state)}>show component</button>
+        <ShowLists items={this.state.listItem}/>
+        <Textarea textareaValue={this.state.textareaValue}
+                  changeTextAreaValue={(event) => this.changeTextAreaValue(event)} preventDefaultTextAreaValue={(event) => this.preventDefaultTextAreaValue(event)}/>
+        <br />
+          <Select selectValue={this.state.selectValue} changeSelectValue={(event) => this.changeSelectValue(event)}/>
       </>
     )
   }
