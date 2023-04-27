@@ -10,7 +10,7 @@ import Conditional from "./components/Conditional Rengering/ifElse";
 import ShowLists from "./components/Lists/ShowLists";
 import Textarea from "./components/Forms/Textarea";
 import Select from "./components/Forms/Select";
-import Time from "./components/Clock/Time";
+import YrokList from "./components/Lists/YrokList";
 
 
 class App extends React.Component {
@@ -34,9 +34,16 @@ class App extends React.Component {
       {title: 'lot', id: 6},
     ],
     textareaValue: "",
-    selectValue : "cake"
-
+    selectValue : "cake",
+    listItems : [1,2,3,4,5,"sad","asdas"]
   }
+
+  addItemHandler = () => {
+    this.setState(() => ({
+      listItems: {...this.state,listItems:this.state.listItems.push("sdad")}
+
+    }))
+}
   handleClickLogin = (state) => {
     this.setState(() => ({
       isLogin: !state.isLogin
@@ -147,6 +154,7 @@ class App extends React.Component {
                   changeTextAreaValue={(event) => this.changeTextAreaValue(event)} preventDefaultTextAreaValue={(event) => this.preventDefaultTextAreaValue(event)}/>
         <br />
           <Select selectValue={this.state.selectValue} changeSelectValue={(event) => this.changeSelectValue(event)}/>
+        <YrokList addItemHandler={() => this.addItemHandler(this.state)} listItems={this.state.listItems}/>
       </>
     )
   }
