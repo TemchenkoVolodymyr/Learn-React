@@ -10,6 +10,7 @@ import Conditional from "./components/Conditional Rengering/ifElse";
 import ShowLists from "./components/Lists/ShowLists";
 import Textarea from "./components/Forms/Textarea";
 import Select from "./components/Forms/Select";
+import Time from "./components/Clock/Time";
 
 
 class App extends React.Component {
@@ -135,7 +136,7 @@ class App extends React.Component {
         <ChangeColor color={this.state.color} changeColor={() => this.changeColor(this.state)}
                      changeColorToo={() => this.changeColorToo(this.state)} secondColor={this.state.secondColor}/>
         {this.state.names.map(name => <ShowName name={name}/>)}
-        <Clock time={this.state.time}/>
+      <Time />
         <SwitchStatus switchStatus={() => this.switchStatus(this.state)} status={this.state.isOn}/>
         <Conditional status={this.state.isLogin} name={this.state.name}
                      handleClickLogin={() => this.handleClickLogin(this.state)}

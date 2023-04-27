@@ -5,7 +5,7 @@ class Clock extends Component {
   render() {
     return (
       <>
-        <p>{this.props.time.toLocaleString()}</p>
+        <p>{this.props.currentTime.toLocaleTimeString()}</p>
       </>
     )
   }
